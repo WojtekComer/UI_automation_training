@@ -1,0 +1,9 @@
+{
+  "test_login_page": {
+    "pageURL" : "https://practicetestautomation.com/practice-test-login/",
+    "username" : "student",
+    "incorrectUser" : "incorrectUser",
+    "password" : "Password123",
+    "incorrectPassword" : "incorrectPassword"
+  }
+}

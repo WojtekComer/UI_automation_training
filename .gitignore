@@ -1,0 +1,22 @@
+#IDE files
+.vscode
+.idea
+*.iml
+*.ipr
+
+#Execution files
+test-results
+archive
+output.json
+test.json
+pytest_html_report.html
+allure-dir
+
+#Pytest files
+.env
+.pytest_cache
+**/__pycache__
+*.csv
+/temporary.crt
+mfsServiceRights.txt
+mfsServiceDrFile.txt
