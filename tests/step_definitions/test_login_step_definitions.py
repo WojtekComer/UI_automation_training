@@ -13,29 +13,41 @@ def navigate_to_login_page(page, load_config_data):
     pom.navigate_to_login_page(url)
 
 
+@step(parsers.parse('the user types "{username}" username into the username field'))
+def user_types_in_username_explicitly(page, username):
+    pom = TestLoginPOM(page)
+    pom.type_in_username(username)
+
+
 @step('the user types in the correct username into the username field')
-def user_enters_username(page, load_config_data):
+def user_enters_correct_username(page, load_config_data):
     pom = TestLoginPOM(page)
     username = load_config_data["test_login_page"]["username"]
     pom.type_in_username(username)
 
 
 @step('the user types in the incorrect username into the username field')
-def user_enters_username(page, load_config_data):
+def user_enters_incorrect_username(page, load_config_data):
     pom = TestLoginPOM(page)
     username = load_config_data["test_login_page"]["incorrectUser"]
     pom.type_in_username(username)
 
 
+@step(parsers.parse('the user types "{password}" password into the password field'))
+def user_types_in_password_explicitly(page, password):
+    pom = TestLoginPOM(page)
+    pom.type_in_password(password)
+
+
 @step('the user types in the correct password into the password field')
-def user_enters_password(page, load_config_data):
+def user_enters_correct_password(page, load_config_data):
     pom = TestLoginPOM(page)
     password = load_config_data["test_login_page"]["password"]
     pom.type_in_password(password)
 
 
 @step('the user types in the incorrect password into the password field')
-def user_enters_password(page, load_config_data):
+def user_enters_incorrect_password(page, load_config_data):
     pom = TestLoginPOM(page)
     password = load_config_data["test_login_page"]["incorrectPassword"]
     pom.type_in_password(password)
@@ -48,6 +60,7 @@ def user_pushes_submit_button(page):
 
 
 @step(parsers.parse('the new page url should contain "{text}" text'))
+@step(parsers.parse('the page url should contain "{text}" text'))
 def verify_page_url(page, text):
     assert text in page.url
 
@@ -74,3 +87,12 @@ def check_error_message_is_displayed(page):
 def check_error_message_text(page, error_message):
     pom = TestLoginPOM(page)
     expect(pom.get_error_message_element()).to_have_text(error_message)
+
+
+@step(parsers.parse('the message "{message}" should be displayed'))
+def check_message_displayed_on_page(page, message):
+    pom = TestLoginPOM(page)
+    if 'logged-in-successfully' in page.url:
+        expect(pom.get_congratulation_message()).to_contain_text(message)
+    else:
+        expect(pom.get_error_message_element()).to_contain_text(message)

@@ -30,3 +30,18 @@ Feature: Login functionality
     When the user pushes submit button
     Then the error message should be displayed
     And the error message text "Your password is invalid!" should be displayed
+
+
+  @tag-004
+  Scenario Outline: Login with multiple credentials both valid and invalid
+    Given the user types "<username>" username into the username field
+    And the user types "<password>" password into the password field
+    When the user pushes submit button
+    Then the page url should contain "<text>" text
+    And the message "<message>" should be displayed
+
+    Examples:
+      | username   | password    | text                   | message              |
+      | student    | Password123 | logged-in-successfully | Congratulations      |
+      | student    | wrong_pass  | practice-test-login    | password is invalid! |
+      | wrong_user | Password123 | practice-test-login    | username is invalid! |
