@@ -2,6 +2,7 @@ from playwright.sync_api import expect
 from pytest_bdd import step, parsers, scenarios
 
 from tests.page_objects.test_login_page.test_login_pom import TestLoginPOM
+from tests.utils.data_utils import DataUtils
 
 scenarios('../features/test_login.feature')
 
@@ -43,7 +44,7 @@ def user_types_in_password_explicitly(page, password):
 def user_enters_correct_password(page, load_config_data):
     pom = TestLoginPOM(page)
     password = load_config_data["test_login_page"]["password"]
-    pom.type_in_password(password)
+    pom.type_in_password(DataUtils.decrypt_secret(password))
 
 
 @step('the user types in the incorrect password into the password field')

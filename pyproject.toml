@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 pytest-playwright = "^0.7.0"
 pytest-bdd = "^8.1.0"
+cryptography = "^44.0.2"
 
 
 [build-system]
