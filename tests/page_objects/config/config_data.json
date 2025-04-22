@@ -5,5 +5,8 @@
     "incorrectUser" : "incorrectUser",
     "password" : "gAAAAABn4dHxUJPQIiOeTkOkcQMCnMsrUoWAIfR56uJsVkv6P2a_C2OuxACgWlL6IDxUEk9OFZeVq3WrIT3YaW8xpF55T6XF5A==",
     "incorrectPassword" : "incorrectPassword"
+  },
+  "ui_playground": {
+    "pageURL": "https://www.uitestingplayground.com/"
   }
 }

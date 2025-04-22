@@ -15,7 +15,7 @@ def browser():
 
 @pytest.fixture
 def page(browser):
-    context = browser.new_context()
+    context = browser.new_context(ignore_https_errors=True)
     page = context.new_page()
     yield page
     page.close()
