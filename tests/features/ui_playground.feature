@@ -1,6 +1,6 @@
 Feature: UI Test Automation Playground
 
-  @tag-005
+  @test-005 @ui-playground
   Scenario: Dynamic ID test - positive case (use of stable selector based on element's text)
     Given the UI Playground page is launched
     When the user clicks "Dynamic ID" link to navigate to "Dynamic ID" page
@@ -8,7 +8,7 @@ Feature: UI Test Automation Playground
     Then the user should be still on the "Dynamic ID" page
 
 
-  @tag-006
+  @test-006 @ui-playground
   Scenario: Dynamic ID test - negative case (use of unstable selector based on element's ID)
     Given the UI Playground page is launched
     When the user clicks "Dynamic ID" link to navigate to "Dynamic ID" page
@@ -16,7 +16,7 @@ Feature: UI Test Automation Playground
     Then the button with ID "#d27033bd-d3fc-f16c-db74-6e27579059cc" should not be visible
 
 
-  @tag-007
+  @test-007 @ui-playground
   Scenario: Class Attribute test - use of well defined class based selector
     Given the UI Playground page is launched
     When the user clicks "Class Attribute" link to navigate to "Class Attribute" page

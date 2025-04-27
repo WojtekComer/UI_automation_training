@@ -4,7 +4,7 @@ Feature: Login functionality
     Given the login page is launched
 
 
-  @tag-001
+  @test-001 @test-login-page
   Scenario: Positive login case with correct credentials
     Given the user types in the correct username into the username field
     And the user types in the correct password into the password field
@@ -14,7 +14,7 @@ Feature: Login functionality
     And the "Log out" button should be displayed on the new page
 
 
-  @tag-002
+  @test-002 @test-login-page
   Scenario: Negative login case with correct user and wrong password
     Given the user types in the incorrect username into the username field
     And the user types in the correct password into the password field
@@ -23,7 +23,7 @@ Feature: Login functionality
     And the error message text "Your username is invalid!" should be displayed
 
 
-  @tag-003
+  @test-003 @test-login-page
   Scenario: Negative login case with incorrect user and correct password
     Given the user types in the correct username into the username field
     And the user types in the incorrect password into the password field
@@ -32,7 +32,7 @@ Feature: Login functionality
     And the error message text "Your password is invalid!" should be displayed
 
 
-  @tag-004
+  @test-004 @test-login-page
   Scenario Outline: Login with multiple credentials both valid and invalid
     Given the user types "<username>" username into the username field
     And the user types "<password>" password into the password field
