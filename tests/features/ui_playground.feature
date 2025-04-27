@@ -14,3 +14,11 @@ Feature: UI Test Automation Playground
     When the user clicks "Dynamic ID" link to navigate to "Dynamic ID" page
     And the user waits for the button with ID "#d27033bd-d3fc-f16c-db74-6e27579059cc" to be visible for "3" seconds
     Then the button with ID "#d27033bd-d3fc-f16c-db74-6e27579059cc" should not be visible
+
+
+  @tag-007
+  Scenario: Class Attribute test - use of well defined class based selector
+    Given the UI Playground page is launched
+    When the user clicks "Class Attribute" link to navigate to "Class Attribute" page
+    And the user clicks the blue primary button
+    Then the alert message should be "Primary button pressed"

@@ -33,3 +33,6 @@ class UiPlaygroundPOM:
 
     def get_element_with_id(self, element_id):
         return self.page.locator(self.selectors.ID_BASED_ELEMENT_SELECTOR.format(element_id=element_id))
+
+    def click_class_based_primary_button(self):
+        self.page.locator(self.selectors.CLASS_BASED_PRIMARY_BUTTON_SELECTOR).click()

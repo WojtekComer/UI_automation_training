@@ -6,6 +6,10 @@ from ..page_objects.ui_playground.ui_playground_pom import UiPlaygroundPOM
 scenarios('../features/ui_playground.feature')
 
 
+class UiPlayground:
+    alert_message = None
+
+
 @step('the UI Playground page is launched')
 def launch_ui_playground_page(page, load_config_data):
     pom = UiPlaygroundPOM(page)
@@ -27,6 +31,24 @@ def user_clicks_link_to_navigate_to_page(page, link_text, page_name):
 def user_clicks_button_with_text(page, button_text):
     pom = UiPlaygroundPOM(page)
     pom.click_button_with_text(button_text, 4000)
+
+
+@step('the user clicks the blue primary button')
+def click_primary_class_button(page):
+    pom = UiPlaygroundPOM(page)
+
+    def dialog_handler(dialog):
+        UiPlayground.alert_message = dialog.message
+        assert dialog.message in 'Primary button pressed'
+        dialog.accept()
+
+    pom.page.on('dialog', dialog_handler)
+    pom.click_class_based_primary_button()
+
+
+@step(parsers.parse('the alert message should be "{alert_message}"'))
+def check_alert_message(alert_message):
+    assert alert_message in UiPlayground.alert_message
 
 
 @step(parsers.parse('the user should be still on the "{page_name}" page'))
