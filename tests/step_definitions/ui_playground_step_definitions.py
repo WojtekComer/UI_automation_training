@@ -23,6 +23,14 @@ def user_clicks_link_to_navigate_to_page(poms: Context, link_text, page_name):
 
 @step(parsers.parse('the user clicks button with text "{button_text}"'))
 def user_clicks_button_with_text(poms: Context, button_text):
+    def dialog_handler(dialog):
+        dialog_message = str(dialog.message)
+        if "\n" in dialog_message:
+            dialog_message = dialog_message.replace('\n', " ")
+        poms.env_data.alert_dialog.alert_message = dialog_message
+        dialog.accept()
+
+    poms.ui_playground_pom.page.on('dialog', dialog_handler)
     poms.ui_playground_pom.click_button_with_text(button_text, 4000)
 
 

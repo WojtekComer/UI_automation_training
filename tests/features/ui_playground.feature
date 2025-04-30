@@ -22,3 +22,11 @@ Feature: UI Test Automation Playground
     When the user clicks "Class Attribute" link to navigate to "Class Attribute" page
     And the user clicks the blue primary button
     Then the alert message should be "Primary button pressed"
+
+
+  @test-008 @ui-playground
+  Scenario: Alerts - standard alert dialog handling
+    Given the UI Playground page is launched
+    When the user clicks "Alerts" link to navigate to "Alerts" page
+    And the user clicks button with text "Alert"
+    Then the alert message should be "Today is a working day. Or less likely a holiday."
