@@ -37,15 +37,20 @@ def user_clicks_button_with_text(poms: Context, button_text):
 
 
 @step(parsers.parse(
-    'the user clicks button with text "{button_text}" and accepts "{confirm_message}" confirm type dialog message'))
-def accept_confirm_dialog_message(poms: Context, button_text, confirm_message):
+    'the user clicks button with text "{button_text}" and "{action}" the "{confirm_message}" confirm type dialog message'))
+def accept_or_dismiss_confirm_dialog_message(poms: Context, button_text, action, confirm_message):
     def dialog_handler(dialog):
         confirm_dialog_message = str(dialog.message)
         if dialog.type in 'confirm':
             if "\n" in confirm_dialog_message:
                 confirm_dialog_message = confirm_dialog_message.replace('\n', " ")
             assert confirm_dialog_message in confirm_message
-            dialog.accept()
+            if action in 'accepts':
+                dialog.accept()
+            elif action in 'dismisses':
+                dialog.dismiss()
+            else:
+                raise ValueError(f'"{action}" action is not defined. Use either "accepts" or "dismisses" action!')
 
         retry = poms.env_data.load_timeouts['MIN_RETRY_ATTEMPTS']
         while retry:

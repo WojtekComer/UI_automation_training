@@ -36,5 +36,13 @@ Feature: UI Test Automation Playground
   Scenario: Alerts - confirm dialog handling - positive case (user accepts confirm type dialog message)
     Given the UI Playground page is launched
     When the user clicks "Alerts" link to navigate to "Alerts" page
-    And the user clicks button with text "Confirm" and accepts "Today is Friday. Do you agree?" confirm type dialog message
+    And the user clicks button with text "Confirm" and "accepts" the "Today is Friday. Do you agree?" confirm type dialog message
     Then the alert message should be "Yes"
+
+
+  @test-010 @ui-playground
+  Scenario: Alerts - confirm dialog handling - negative case (user dismisses confirm type dialog message)
+    Given the UI Playground page is launched
+    When the user clicks "Alerts" link to navigate to "Alerts" page
+    And the user clicks button with text "Confirm" and "dismisses" the "Today is Friday. Do you agree?" confirm type dialog message
+    Then the alert message should be "No"
