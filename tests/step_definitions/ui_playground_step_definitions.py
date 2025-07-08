@@ -68,6 +68,35 @@ def accept_or_dismiss_confirm_dialog_message(poms: Context, button_text, action,
     poms.ui_playground_pom.click_button_with_text(button_text, 4000)
 
 
+@step(parsers.parse(
+    'the user clicks button with text "{button_text}" enters "{user_value}" value and "{action}" prompt type dialog message'))
+def enter_value_and_accept_or_dismiss_prompt_dialog_message(poms: Context, button_text, user_value, action):
+    def dialog_handler(dialog):
+        if dialog.type in 'prompt':
+            assert 'Enter your value:' in dialog.message
+            if action in 'accepts':
+                dialog.accept(user_value)
+            elif action in 'dismisses':
+                dialog.dismiss(user_value)
+            else:
+                raise ValueError(f'"{action}" action is not defined. Use either "accepts" or "dismisses" action!')
+
+        retry = poms.env_data.load_timeouts['MIN_RETRY_ATTEMPTS']
+        while retry:
+            if dialog.type in 'alert':
+                break
+            retry -= 1
+            time.sleep(poms.env_data.load_timeouts['MIN_HARD_SLEEP'])
+        assert retry > 0, f'"Alert" type dialog was not generated after accepting "Prompt" type dialog'
+
+        if dialog.type in 'alert':
+            poms.env_data.alert_dialog.alert_message = dialog.message
+            dialog.accept()
+
+    poms.ui_playground_pom.page.on('dialog', dialog_handler)
+    poms.ui_playground_pom.click_button_with_text(button_text, 4000)
+
+
 @step('the user clicks the blue primary button')
 def click_primary_class_button(poms: Context):
     def dialog_handler(dialog):

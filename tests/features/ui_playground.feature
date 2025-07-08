@@ -46,3 +46,11 @@ Feature: UI Test Automation Playground
     When the user clicks "Alerts" link to navigate to "Alerts" page
     And the user clicks button with text "Confirm" and "dismisses" the "Today is Friday. Do you agree?" confirm type dialog message
     Then the alert message should be "No"
+
+
+  @test-011 @ui-playground
+  Scenario: Alerts - prompt dialog handling - positive case (user enters value and accepts prompt type dialog message)
+    Given the UI Playground page is launched
+    When the user clicks "Alerts" link to navigate to "Alerts" page
+    And the user clicks button with text "Prompt" enters "dogs" value and "accepts" prompt type dialog message
+    Then the alert message should be "User value: dogs"
