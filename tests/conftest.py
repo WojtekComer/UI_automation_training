@@ -30,6 +30,13 @@ class EnvironmentData:
             data_dictionary = json.loads(data.read())
         return data_dictionary
 
+    @property
+    def load_timeouts(self):
+        path = os.path.dirname(__file__)
+        with open(f'{path}/page_objects/config/timeouts.json', "rb") as data:
+            data_dictionary = json.loads(data.read())
+        return data_dictionary
+
 
 @pytest.fixture()
 def poms(page):

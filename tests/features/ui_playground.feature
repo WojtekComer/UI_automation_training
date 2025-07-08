@@ -30,3 +30,11 @@ Feature: UI Test Automation Playground
     When the user clicks "Alerts" link to navigate to "Alerts" page
     And the user clicks button with text "Alert"
     Then the alert message should be "Today is a working day. Or less likely a holiday."
+
+
+  @test-009 @ui-playground
+  Scenario: Alerts - confirm dialog handling - positive case (user accepts confirm type dialog message)
+    Given the UI Playground page is launched
+    When the user clicks "Alerts" link to navigate to "Alerts" page
+    And the user clicks button with text "Confirm" and accepts "Today is Friday. Do you agree?" confirm type dialog message
+    Then the alert message should be "Yes"

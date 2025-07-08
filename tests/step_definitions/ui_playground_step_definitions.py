@@ -1,3 +1,5 @@
+import time
+
 from playwright.sync_api import expect
 from pytest_bdd import scenarios, step, parsers
 
@@ -34,6 +36,33 @@ def user_clicks_button_with_text(poms: Context, button_text):
     poms.ui_playground_pom.click_button_with_text(button_text, 4000)
 
 
+@step(parsers.parse(
+    'the user clicks button with text "{button_text}" and accepts "{confirm_message}" confirm type dialog message'))
+def accept_confirm_dialog_message(poms: Context, button_text, confirm_message):
+    def dialog_handler(dialog):
+        confirm_dialog_message = str(dialog.message)
+        if dialog.type in 'confirm':
+            if "\n" in confirm_dialog_message:
+                confirm_dialog_message = confirm_dialog_message.replace('\n', " ")
+            assert confirm_dialog_message in confirm_message
+            dialog.accept()
+
+        retry = poms.env_data.load_timeouts['MIN_RETRY_ATTEMPTS']
+        while retry:
+            if dialog.type in 'alert':
+                break
+            retry -= 1
+            time.sleep(poms.env_data.load_timeouts['MIN_HARD_SLEEP'])
+        assert retry > 0, f'"Alert" type dialog was not generated after accepting "Confirm" type dialog'
+
+        if dialog.type in 'alert':
+            poms.env_data.alert_dialog.alert_message = dialog.message
+            dialog.accept()
+
+    poms.ui_playground_pom.page.on('dialog', dialog_handler)
+    poms.ui_playground_pom.click_button_with_text(button_text, 4000)
+
+
 @step('the user clicks the blue primary button')
 def click_primary_class_button(poms: Context):
     def dialog_handler(dialog):
@@ -56,7 +85,7 @@ def user_still_on_the_page(poms: Context, page_name):
 
 @step(parsers.parse('the user waits for the button with ID "{button_id}" to be visible for "{time_seconds}" seconds'))
 def wait_for_button_with_id_for_given_time(poms: Context, button_id, time_seconds):
-    poms.ui_playground_pom.wait_for_state_of_element_with_id(button_id, int(time_seconds)*1000)
+    poms.ui_playground_pom.wait_for_state_of_element_with_id(button_id, int(time_seconds) * 1000)
 
 
 @step(parsers.parse('the button with ID "{button_id}" should not be visible'))
