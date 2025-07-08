@@ -77,7 +77,7 @@ def enter_value_and_accept_or_dismiss_prompt_dialog_message(poms: Context, butto
             if action in 'accepts':
                 dialog.accept(user_value)
             elif action in 'dismisses':
-                dialog.dismiss(user_value)
+                dialog.dismiss()
             else:
                 raise ValueError(f'"{action}" action is not defined. Use either "accepts" or "dismisses" action!')
 
